@@ -766,43 +766,53 @@
   </div>
 </footer>
 
-<!-- WhatsApp -->
-<a class="whatsapp" href="https://wa.me/919650228227?text=Hello%20Embro%20Sales%20%26%20Services%2C%20I%20need%20technical%20support." target="_blank" aria-label="WhatsApp">
-  <i class="bi bi-whatsapp"></i>
-</a>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Current year
+   // Current year
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Quote form demo
+  // Quote form -> WhatsApp
   document.getElementById("quoteForm").addEventListener("submit", function(e){
     e.preventDefault();
 
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const service = document.getElementById("service").value;
+    const company = document.getElementById("company").value.trim();
+    const message = document.getElementById("message").value.trim();
 
     if(!name || !phone || !service){
       alert("Please fill Name, Mobile Number and Service.");
       return;
     }
 
-    const company = document.getElementById("company").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    const text =
+    const whatsappMessage =
       "Hello Embro Sales & Services,%0A%0A" +
       "Name: " + encodeURIComponent(name) + "%0A" +
-      "Company: " + encodeURIComponent(company) + "%0A" +
+      "Company: " + encodeURIComponent(company || "Not Provided") + "%0A" +
       "Mobile: " + encodeURIComponent(phone) + "%0A" +
       "Service: " + encodeURIComponent(service) + "%0A" +
-      "Requirement: " + encodeURIComponent(message);
+      "Requirement: " + encodeURIComponent(message || "Not Provided");
 
-    window.open("https://wa.me/919650228227?text=" + text, "_blank");
+    const whatsappURL =
+      "https://wa.me/919368471572?text=" + whatsappMessage;
+
+    window.open(whatsappURL, "_blank");
+  });
+
+  // Close mobile navbar after clicking a normal link
+  document.querySelectorAll(".navbar .nav-link:not(.dropdown-toggle)").forEach(function(link){
+    link.addEventListener("click", function(){
+      const nav = document.getElementById("mainNav");
+
+      if(nav.classList.contains("show")){
+        new bootstrap.Collapse(nav).hide();
+      }
+    });
   });
 
   // Close mobile navbar after clicking a normal link
@@ -818,3 +828,5 @@
 
 </body>
 </html>
+
+
